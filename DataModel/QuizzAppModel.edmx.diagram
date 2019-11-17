@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c6057792cf64483a8d178b55c5d21960" Name="Diagram1">
+        <EntityTypeShape EntityType="QuizzesDbModel.CandidateAnswer" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.CandidateMaster" Width="1.5" PointX="11.375" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.CandidateRepository" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.QuizzLevel" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.QuizzMaping" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.QuizzQuestionMaster" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.QuizzQustionMaping" Width="1.5" PointX="10.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.QuizzQustionsOption" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizzesDbModel.QuizzSubject" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="QuizzesDbModel.FK_CandidateAnswers_CandidateRepository" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_CandidateAnswers_QuizzQuestionMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_CandidateAnswers_QuizzQustionsOptions" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_CandidateRepository_CandidateMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_CandidateRepository_QuizzQustionMaping" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_QuizzMaping_QuizzLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_QuizzMaping_QuizzSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_QuizzQuestionMaster_QuizzMaping" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_QuizzQustionMaping_QuizzMaping" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

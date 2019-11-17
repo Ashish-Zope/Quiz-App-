@@ -1,0 +1,55 @@
+﻿@model   IEnumerable<QuizzApp.Models.CertificationModel>
+
+@{
+    ViewBag.Title = "CertificationGet";
+}
+
+<style>
+    form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+<h4><label>Search Certification</label></h4>
+<form class="example">
+  <input type="text" placeholder="Search.." name="search">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+<hr />
+
+@foreach(var item in Model)
+{
+    <div class="card" style="margin-top: 10px;">
+      <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(model=>item.Subject)</h5>
+        <p class="card-text">@Html.DisplayFor(model=>item.Description)</p>
+          @Html.ActionLink("Start Exam","SelectExam",new{id=item.Id},new{@class="btn btn-success"})
+      </div>
+    </div>
+}

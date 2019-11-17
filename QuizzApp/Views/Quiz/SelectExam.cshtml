@@ -1,0 +1,163 @@
+﻿@model  IEnumerable<QuizzApp.Models.SelectExamModel>
+@{
+    ViewBag.Title = "SelectExam";
+}
+<style>
+     .project-tab 
+      {
+        padding: 10%;        margin-top: -8%;
+       }
+
+     .project-tab #tabs
+      {
+            background: #007b5e;            color: #eee;
+      }
+
+     .project-tab #tabs h6.section-title
+      {
+                color: #eee;
+      }
+
+     .project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active
+      {
+            color: #0062cc;                background-color: transparent;                border-color: transparent transparent #f3f3f3;
+            border-bottom: 3px solid !important;                font-size: 16px;                font-weight: bold;
+      }
+
+     .project-tab .nav-link
+      {
+            border: 1px solid transparent;            border-top-left-radius: .25rem;            border-top-right-radius: .25rem;
+            color: #0062cc;            font-size: 16px;            font-weight: 600;
+      }
+
+    .project-tab .nav-link:hover
+     {
+             border: none;
+     }
+
+    .project-tab thead
+     {
+            background: #f3f3f3;            color: #333;
+     }
+
+    .project-tab a
+     {
+            text-decoration: none;            color: #333;            font-weight: 600;
+     }
+
+    .linkbtnStyle 
+    {
+        color: white !important;        float: right;        cursor: pointer;    
+    }
+    .tabPanel
+    {
+            padding-top: 2%;
+    }
+    .cardBodyStyle 
+    {
+        height: 300px;  overflow: auto;
+    }
+</style>
+@using(Html.BeginForm("Exam","Quiz"))
+{
+    
+<div class="row">
+    <div class="col-md-12">
+        <nav class="">
+            <div class="nav nav-tabs nav-fill SelectExam" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Select Difficulty Level </a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Description</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show tabPanel active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="card">
+                    <div class="card-body cardBodyStyle">
+
+                        @foreach (var item in Model)
+                        { 
+                            <div class="radio">
+                                <label class="radio">
+                                    @Html.RadioButton("SelectExamRadio", item.ExamID) @item.ExamLevel
+                                </label>
+                            </div>
+                        }
+                        @* <input name="collapseGroup" type="radio" data-toggle="collapse" data-target="#collapseOne" />
+                                    Yes
+                                  <input name="collapseGroup" type="radio" data-toggle="collapse" data-target="#collapseOne" checked />
+                                                                No
+                                  <div class="panel-group" id="accordion">*@
+
+                        @* <div class="radio">
+                            <label class="radio">
+                                <input type="radio" name="optradio">Intermediate</label>
+                        </div>
+                        <div class="radio">
+                            <label class="radio">
+                                <input type="radio" name="optradio">Expert</label>
+                        </div> *@
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary linkbtnStyle btnNext">Next</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade tabPanel" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="card">
+                    <div class="card-body cardBodyStyle">                      
+                                <div class="col-xs-12">                                 
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                              <h4 class="panel-title">Exam Description</h4>
+                                          </div>
+                                          @foreach(var item in Model)
+                                          {
+                                              <div id="@item.ExamID-Panel" class="panel-collapse collapse">
+                                                  <div class="panel-body">
+                                                      <p>@item.Description</p>
+                                                  </div>
+                                              </div>
+                                          }
+                                      </div>
+                                  </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-2 align-self-end"><a class="btn btn-primary linkbtnStyle btnPrevious">Previous</a></div>
+                            <div class="col-sm-2 align-self-end"> <input type="submit" class="btn btn-primary" value="Start Exam" /> @*<a class="btn btn-primary linkbtnStyle">Start Exam</a></div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div>
+}
+<script>
+    $('.btnNext').click(function () {
+
+        //$('#SelectExamRadio').each(function () {
+        //    alert($(this).val());
+        //});
+       var selectedExam=  $('#SelectExamRadio:checked').val()
+       debugger;
+       if (selectedExam != undefined) {
+           $('#' + selectedExam + '-Panel').toggle();
+
+           $('.SelectExam > .active').next('a').trigger('click');
+       } else {
+           alert('Please select the exam.')
+       }
+       
+
+    });
+    $('.btnPrevious').click(function () {
+        var selectedExam = $('#SelectExamRadio:checked').val()
+        $('#' + selectedExam + '-Panel').toggle();
+        $('.nav-tabs > .active').prev('a').trigger('click');
+
+        
+    });
+</script>
+
+

@@ -1,0 +1,667 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QuizzesDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="QuizzesDbModelStoreContainer">
+          <EntitySet Name="CandidateAnswers" EntityType="QuizzesDbModel.Store.CandidateAnswers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CandidateMaster" EntityType="QuizzesDbModel.Store.CandidateMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CandidateRepository" EntityType="QuizzesDbModel.Store.CandidateRepository" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuizzLevel" EntityType="QuizzesDbModel.Store.QuizzLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuizzMaping" EntityType="QuizzesDbModel.Store.QuizzMaping" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuizzQuestionMaster" EntityType="QuizzesDbModel.Store.QuizzQuestionMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuizzQustionMaping" EntityType="QuizzesDbModel.Store.QuizzQustionMaping" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuizzQustionsOptions" EntityType="QuizzesDbModel.Store.QuizzQustionsOptions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuizzSubjects" EntityType="QuizzesDbModel.Store.QuizzSubjects" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_CandidateAnswers_CandidateRepository" Association="QuizzesDbModel.Store.FK_CandidateAnswers_CandidateRepository">
+            <End Role="CandidateRepository" EntitySet="CandidateRepository" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_QuizzQuestionMaster" Association="QuizzesDbModel.Store.FK_CandidateAnswers_QuizzQuestionMaster">
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMaster" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_QuizzQustionsOptions" Association="QuizzesDbModel.Store.FK_CandidateAnswers_QuizzQustionsOptions">
+            <End Role="QuizzQustionsOptions" EntitySet="QuizzQustionsOptions" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateRepository_CandidateMaster" Association="QuizzesDbModel.Store.FK_CandidateRepository_CandidateMaster">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="CandidateRepository" EntitySet="CandidateRepository" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateRepository_QuizzQustionMaping" Association="QuizzesDbModel.Store.FK_CandidateRepository_QuizzQustionMaping">
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMaping" />
+            <End Role="CandidateRepository" EntitySet="CandidateRepository" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzMaping_QuizzLevel" Association="QuizzesDbModel.Store.FK_QuizzMaping_QuizzLevel">
+            <End Role="QuizzLevel" EntitySet="QuizzLevel" />
+            <End Role="QuizzMaping" EntitySet="QuizzMaping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzMaping_QuizzSubjects" Association="QuizzesDbModel.Store.FK_QuizzMaping_QuizzSubjects">
+            <End Role="QuizzSubjects" EntitySet="QuizzSubjects" />
+            <End Role="QuizzMaping" EntitySet="QuizzMaping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQuestionMaster_QuizzMaping" Association="QuizzesDbModel.Store.FK_QuizzQuestionMaster_QuizzMaping">
+            <End Role="QuizzMaping" EntitySet="QuizzMaping" />
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQustionMaping_QuizzMaping" Association="QuizzesDbModel.Store.FK_QuizzQustionMaping_QuizzMaping">
+            <End Role="QuizzMaping" EntitySet="QuizzMaping" />
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMaping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQustionMaping_QuizzQuestionMaster" Association="QuizzesDbModel.Store.FK_QuizzQustionMaping_QuizzQuestionMaster">
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMaster" />
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMaping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQustionMaping_QuizzQuestionMaster1" Association="QuizzesDbModel.Store.FK_QuizzQustionMaping_QuizzQuestionMaster1">
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMaster" />
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMaping" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CandidateAnswers">
+          <Key>
+            <PropertyRef Name="Ca_Id" />
+          </Key>
+          <Property Name="Ca_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ca_CandadateRepositoryId" Type="int" />
+          <Property Name="Ca_QustionId" Type="int" />
+          <Property Name="Ca_SelectedOption" Type="int" />
+        </EntityType>
+        <EntityType Name="CandidateMaster">
+          <Key>
+            <PropertyRef Name="Candidate_ID" />
+          </Key>
+          <Property Name="Candidate_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Candidate_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Candidate_EmailId" Type="varchar" MaxLength="100" />
+          <Property Name="CandidatePassword" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="CandidateRepository">
+          <Key>
+            <PropertyRef Name="Cq_ID" />
+          </Key>
+          <Property Name="Cq_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Cq_CandidateId" Type="int" />
+          <Property Name="Cq_QuizzId" Type="int" />
+          <Property Name="Cq_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="QuizzLevel">
+          <Key>
+            <PropertyRef Name="Ql_Id" />
+          </Key>
+          <Property Name="Ql_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ql_Type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="QuizzMaping">
+          <Key>
+            <PropertyRef Name="Qm_Id" />
+          </Key>
+          <Property Name="Qm_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Qm_QuizzSubjectId" Type="int" Nullable="false" />
+          <Property Name="Qm_QuizzLvlId" Type="int" Nullable="false" />
+          <Property Name="Qm_Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="QuizzQuestionMaster">
+          <Key>
+            <PropertyRef Name="Qq_Id" />
+          </Key>
+          <Property Name="Qq_Id" Type="int" Nullable="false" />
+          <Property Name="Qq_QuizzId" Type="int" />
+          <Property Name="Qq_Question" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="QuizzQustionMaping">
+          <Key>
+            <PropertyRef Name="Qm_Id" />
+          </Key>
+          <Property Name="Qm_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Qm_QuizzID" Type="int" />
+          <Property Name="Qm_QutionID" Type="int" />
+          <Property Name="Qm_Answer" Type="int" />
+        </EntityType>
+        <EntityType Name="QuizzQustionsOptions">
+          <Key>
+            <PropertyRef Name="Qo_Id" />
+          </Key>
+          <Property Name="Qo_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Qo_AnswerText" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="QuizzSubjects">
+          <Key>
+            <PropertyRef Name="Qs_Id" />
+          </Key>
+          <Property Name="Qs_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Qs_Subject" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CandidateAnswers_CandidateRepository">
+          <End Role="CandidateRepository" Type="QuizzesDbModel.Store.CandidateRepository" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="QuizzesDbModel.Store.CandidateAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateRepository">
+              <PropertyRef Name="Cq_ID" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="Ca_CandadateRepositoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_QuizzQuestionMaster">
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.Store.QuizzQuestionMaster" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="QuizzesDbModel.Store.CandidateAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_Id" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="Ca_QustionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_QuizzQustionsOptions">
+          <End Role="QuizzQustionsOptions" Type="QuizzesDbModel.Store.QuizzQustionsOptions" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="QuizzesDbModel.Store.CandidateAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQustionsOptions">
+              <PropertyRef Name="Qo_Id" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="Ca_SelectedOption" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateRepository_CandidateMaster">
+          <End Role="CandidateMaster" Type="QuizzesDbModel.Store.CandidateMaster" Multiplicity="0..1" />
+          <End Role="CandidateRepository" Type="QuizzesDbModel.Store.CandidateRepository" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="Candidate_ID" />
+            </Principal>
+            <Dependent Role="CandidateRepository">
+              <PropertyRef Name="Cq_CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateRepository_QuizzQustionMaping">
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.Store.QuizzQustionMaping" Multiplicity="0..1" />
+          <End Role="CandidateRepository" Type="QuizzesDbModel.Store.CandidateRepository" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_Id" />
+            </Principal>
+            <Dependent Role="CandidateRepository">
+              <PropertyRef Name="Cq_QuizzId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzMaping_QuizzLevel">
+          <End Role="QuizzLevel" Type="QuizzesDbModel.Store.QuizzLevel" Multiplicity="1" />
+          <End Role="QuizzMaping" Type="QuizzesDbModel.Store.QuizzMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzLevel">
+              <PropertyRef Name="Ql_Id" />
+            </Principal>
+            <Dependent Role="QuizzMaping">
+              <PropertyRef Name="Qm_QuizzLvlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzMaping_QuizzSubjects">
+          <End Role="QuizzSubjects" Type="QuizzesDbModel.Store.QuizzSubjects" Multiplicity="1" />
+          <End Role="QuizzMaping" Type="QuizzesDbModel.Store.QuizzMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzSubjects">
+              <PropertyRef Name="Qs_Id" />
+            </Principal>
+            <Dependent Role="QuizzMaping">
+              <PropertyRef Name="Qm_QuizzSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQuestionMaster_QuizzMaping">
+          <End Role="QuizzMaping" Type="QuizzesDbModel.Store.QuizzMaping" Multiplicity="0..1" />
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.Store.QuizzQuestionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzMaping">
+              <PropertyRef Name="Qm_Id" />
+            </Principal>
+            <Dependent Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_QuizzId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQustionMaping_QuizzMaping">
+          <End Role="QuizzMaping" Type="QuizzesDbModel.Store.QuizzMaping" Multiplicity="0..1" />
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.Store.QuizzQustionMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzMaping">
+              <PropertyRef Name="Qm_Id" />
+            </Principal>
+            <Dependent Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_QuizzID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQustionMaping_QuizzQuestionMaster">
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.Store.QuizzQuestionMaster" Multiplicity="0..1" />
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.Store.QuizzQustionMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_Id" />
+            </Principal>
+            <Dependent Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_QutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQustionMaping_QuizzQuestionMaster1">
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.Store.QuizzQuestionMaster" Multiplicity="0..1" />
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.Store.QuizzQustionMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_Id" />
+            </Principal>
+            <Dependent Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_Answer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuizzesDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QuizzesDbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="CandidateAnswers" EntityType="QuizzesDbModel.CandidateAnswer" />
+          <EntitySet Name="CandidateMasters" EntityType="QuizzesDbModel.CandidateMaster" />
+          <EntitySet Name="CandidateRepositories" EntityType="QuizzesDbModel.CandidateRepository" />
+          <EntitySet Name="QuizzLevels" EntityType="QuizzesDbModel.QuizzLevel" />
+          <EntitySet Name="QuizzMapings" EntityType="QuizzesDbModel.QuizzMaping" />
+          <EntitySet Name="QuizzQuestionMasters" EntityType="QuizzesDbModel.QuizzQuestionMaster" />
+          <EntitySet Name="QuizzQustionMapings" EntityType="QuizzesDbModel.QuizzQustionMaping" />
+          <EntitySet Name="QuizzQustionsOptions" EntityType="QuizzesDbModel.QuizzQustionsOption" />
+          <EntitySet Name="QuizzSubjects" EntityType="QuizzesDbModel.QuizzSubject" />
+          <AssociationSet Name="FK_CandidateAnswers_CandidateRepository" Association="QuizzesDbModel.FK_CandidateAnswers_CandidateRepository">
+            <End Role="CandidateRepository" EntitySet="CandidateRepositories" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_QuizzQuestionMaster" Association="QuizzesDbModel.FK_CandidateAnswers_QuizzQuestionMaster">
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMasters" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_QuizzQustionsOptions" Association="QuizzesDbModel.FK_CandidateAnswers_QuizzQustionsOptions">
+            <End Role="QuizzQustionsOptions" EntitySet="QuizzQustionsOptions" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateRepository_CandidateMaster" Association="QuizzesDbModel.FK_CandidateRepository_CandidateMaster">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="CandidateRepository" EntitySet="CandidateRepositories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateRepository_QuizzQustionMaping" Association="QuizzesDbModel.FK_CandidateRepository_QuizzQustionMaping">
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMapings" />
+            <End Role="CandidateRepository" EntitySet="CandidateRepositories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzMaping_QuizzLevel" Association="QuizzesDbModel.FK_QuizzMaping_QuizzLevel">
+            <End Role="QuizzLevel" EntitySet="QuizzLevels" />
+            <End Role="QuizzMaping" EntitySet="QuizzMapings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzMaping_QuizzSubjects" Association="QuizzesDbModel.FK_QuizzMaping_QuizzSubjects">
+            <End Role="QuizzSubjects" EntitySet="QuizzSubjects" />
+            <End Role="QuizzMaping" EntitySet="QuizzMapings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQuestionMaster_QuizzMaping" Association="QuizzesDbModel.FK_QuizzQuestionMaster_QuizzMaping">
+            <End Role="QuizzMaping" EntitySet="QuizzMapings" />
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQustionMaping_QuizzMaping" Association="QuizzesDbModel.FK_QuizzQustionMaping_QuizzMaping">
+            <End Role="QuizzMaping" EntitySet="QuizzMapings" />
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMapings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQustionMaping_QuizzQuestionMaster" Association="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster">
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMasters" />
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMapings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizzQustionMaping_QuizzQuestionMaster1" Association="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster1">
+            <End Role="QuizzQuestionMaster" EntitySet="QuizzQuestionMasters" />
+            <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMapings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CandidateAnswer">
+          <Key>
+            <PropertyRef Name="Ca_Id" />
+          </Key>
+          <Property Name="Ca_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ca_CandadateRepositoryId" Type="Int32" />
+          <Property Name="Ca_QustionId" Type="Int32" />
+          <Property Name="Ca_SelectedOption" Type="Int32" />
+          <NavigationProperty Name="CandidateRepository" Relationship="QuizzesDbModel.FK_CandidateAnswers_CandidateRepository" FromRole="CandidateAnswers" ToRole="CandidateRepository" />
+          <NavigationProperty Name="QuizzQuestionMaster" Relationship="QuizzesDbModel.FK_CandidateAnswers_QuizzQuestionMaster" FromRole="CandidateAnswers" ToRole="QuizzQuestionMaster" />
+          <NavigationProperty Name="QuizzQustionsOption" Relationship="QuizzesDbModel.FK_CandidateAnswers_QuizzQustionsOptions" FromRole="CandidateAnswers" ToRole="QuizzQustionsOptions" />
+        </EntityType>
+        <EntityType Name="CandidateMaster">
+          <Key>
+            <PropertyRef Name="Candidate_ID" />
+          </Key>
+          <Property Name="Candidate_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Candidate_Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Candidate_EmailId" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CandidatePassword" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="CandidateRepositories" Relationship="QuizzesDbModel.FK_CandidateRepository_CandidateMaster" FromRole="CandidateMaster" ToRole="CandidateRepository" />
+        </EntityType>
+        <EntityType Name="CandidateRepository">
+          <Key>
+            <PropertyRef Name="Cq_ID" />
+          </Key>
+          <Property Name="Cq_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Cq_CandidateId" Type="Int32" />
+          <Property Name="Cq_QuizzId" Type="Int32" />
+          <Property Name="Cq_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CandidateAnswers" Relationship="QuizzesDbModel.FK_CandidateAnswers_CandidateRepository" FromRole="CandidateRepository" ToRole="CandidateAnswers" />
+          <NavigationProperty Name="CandidateMaster" Relationship="QuizzesDbModel.FK_CandidateRepository_CandidateMaster" FromRole="CandidateRepository" ToRole="CandidateMaster" />
+          <NavigationProperty Name="QuizzQustionMaping" Relationship="QuizzesDbModel.FK_CandidateRepository_QuizzQustionMaping" FromRole="CandidateRepository" ToRole="QuizzQustionMaping" />
+        </EntityType>
+        <EntityType Name="QuizzLevel">
+          <Key>
+            <PropertyRef Name="Ql_Id" />
+          </Key>
+          <Property Name="Ql_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ql_Type" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="QuizzMapings" Relationship="QuizzesDbModel.FK_QuizzMaping_QuizzLevel" FromRole="QuizzLevel" ToRole="QuizzMaping" />
+        </EntityType>
+        <EntityType Name="QuizzMaping">
+          <Key>
+            <PropertyRef Name="Qm_Id" />
+          </Key>
+          <Property Name="Qm_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Qm_QuizzSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="Qm_QuizzLvlId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuizzLevel" Relationship="QuizzesDbModel.FK_QuizzMaping_QuizzLevel" FromRole="QuizzMaping" ToRole="QuizzLevel" />
+          <NavigationProperty Name="QuizzSubject" Relationship="QuizzesDbModel.FK_QuizzMaping_QuizzSubjects" FromRole="QuizzMaping" ToRole="QuizzSubjects" />
+          <NavigationProperty Name="QuizzQuestionMasters" Relationship="QuizzesDbModel.FK_QuizzQuestionMaster_QuizzMaping" FromRole="QuizzMaping" ToRole="QuizzQuestionMaster" />
+          <NavigationProperty Name="QuizzQustionMapings" Relationship="QuizzesDbModel.FK_QuizzQustionMaping_QuizzMaping" FromRole="QuizzMaping" ToRole="QuizzQustionMaping" />
+          <Property Type="String" Name="Qm_Description" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="QuizzQuestionMaster">
+          <Key>
+            <PropertyRef Name="Qq_Id" />
+          </Key>
+          <Property Name="Qq_Id" Type="Int32" Nullable="false" />
+          <Property Name="Qq_QuizzId" Type="Int32" />
+          <Property Name="Qq_Question" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="CandidateAnswers" Relationship="QuizzesDbModel.FK_CandidateAnswers_QuizzQuestionMaster" FromRole="QuizzQuestionMaster" ToRole="CandidateAnswers" />
+          <NavigationProperty Name="QuizzMaping" Relationship="QuizzesDbModel.FK_QuizzQuestionMaster_QuizzMaping" FromRole="QuizzQuestionMaster" ToRole="QuizzMaping" />
+          <NavigationProperty Name="QuizzQustionMapings" Relationship="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster" FromRole="QuizzQuestionMaster" ToRole="QuizzQustionMaping" />
+          <NavigationProperty Name="QuizzQustionMapings1" Relationship="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster1" FromRole="QuizzQuestionMaster" ToRole="QuizzQustionMaping" />
+        </EntityType>
+        <EntityType Name="QuizzQustionMaping">
+          <Key>
+            <PropertyRef Name="Qm_Id" />
+          </Key>
+          <Property Name="Qm_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Qm_QuizzID" Type="Int32" />
+          <Property Name="Qm_QutionID" Type="Int32" />
+          <Property Name="Qm_Answer" Type="Int32" />
+          <NavigationProperty Name="CandidateRepositories" Relationship="QuizzesDbModel.FK_CandidateRepository_QuizzQustionMaping" FromRole="QuizzQustionMaping" ToRole="CandidateRepository" />
+          <NavigationProperty Name="QuizzMaping" Relationship="QuizzesDbModel.FK_QuizzQustionMaping_QuizzMaping" FromRole="QuizzQustionMaping" ToRole="QuizzMaping" />
+          <NavigationProperty Name="QuizzQuestionMaster" Relationship="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster" FromRole="QuizzQustionMaping" ToRole="QuizzQuestionMaster" />
+          <NavigationProperty Name="QuizzQuestionMaster1" Relationship="QuizzesDbModel.FK_QuizzQustionMaping_QuizzQuestionMaster1" FromRole="QuizzQustionMaping" ToRole="QuizzQuestionMaster" />
+        </EntityType>
+        <EntityType Name="QuizzQustionsOption">
+          <Key>
+            <PropertyRef Name="Qo_Id" />
+          </Key>
+          <Property Name="Qo_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Qo_AnswerText" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="CandidateAnswers" Relationship="QuizzesDbModel.FK_CandidateAnswers_QuizzQustionsOptions" FromRole="QuizzQustionsOptions" ToRole="CandidateAnswers" />
+        </EntityType>
+        <EntityType Name="QuizzSubject">
+          <Key>
+            <PropertyRef Name="Qs_Id" />
+          </Key>
+          <Property Name="Qs_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Qs_Subject" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="QuizzMapings" Relationship="QuizzesDbModel.FK_QuizzMaping_QuizzSubjects" FromRole="QuizzSubjects" ToRole="QuizzMaping" />
+        </EntityType>
+        <Association Name="FK_CandidateAnswers_CandidateRepository">
+          <End Role="CandidateRepository" Type="QuizzesDbModel.CandidateRepository" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="QuizzesDbModel.CandidateAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateRepository">
+              <PropertyRef Name="Cq_ID" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="Ca_CandadateRepositoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_QuizzQuestionMaster">
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.QuizzQuestionMaster" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="QuizzesDbModel.CandidateAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_Id" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="Ca_QustionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_QuizzQustionsOptions">
+          <End Role="QuizzQustionsOptions" Type="QuizzesDbModel.QuizzQustionsOption" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="QuizzesDbModel.CandidateAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQustionsOptions">
+              <PropertyRef Name="Qo_Id" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="Ca_SelectedOption" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateRepository_CandidateMaster">
+          <End Role="CandidateMaster" Type="QuizzesDbModel.CandidateMaster" Multiplicity="0..1" />
+          <End Role="CandidateRepository" Type="QuizzesDbModel.CandidateRepository" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="Candidate_ID" />
+            </Principal>
+            <Dependent Role="CandidateRepository">
+              <PropertyRef Name="Cq_CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateRepository_QuizzQustionMaping">
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.QuizzQustionMaping" Multiplicity="0..1" />
+          <End Role="CandidateRepository" Type="QuizzesDbModel.CandidateRepository" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_Id" />
+            </Principal>
+            <Dependent Role="CandidateRepository">
+              <PropertyRef Name="Cq_QuizzId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzMaping_QuizzLevel">
+          <End Role="QuizzLevel" Type="QuizzesDbModel.QuizzLevel" Multiplicity="1" />
+          <End Role="QuizzMaping" Type="QuizzesDbModel.QuizzMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzLevel">
+              <PropertyRef Name="Ql_Id" />
+            </Principal>
+            <Dependent Role="QuizzMaping">
+              <PropertyRef Name="Qm_QuizzLvlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzMaping_QuizzSubjects">
+          <End Role="QuizzSubjects" Type="QuizzesDbModel.QuizzSubject" Multiplicity="1" />
+          <End Role="QuizzMaping" Type="QuizzesDbModel.QuizzMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzSubjects">
+              <PropertyRef Name="Qs_Id" />
+            </Principal>
+            <Dependent Role="QuizzMaping">
+              <PropertyRef Name="Qm_QuizzSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQuestionMaster_QuizzMaping">
+          <End Role="QuizzMaping" Type="QuizzesDbModel.QuizzMaping" Multiplicity="0..1" />
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.QuizzQuestionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzMaping">
+              <PropertyRef Name="Qm_Id" />
+            </Principal>
+            <Dependent Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_QuizzId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQustionMaping_QuizzMaping">
+          <End Role="QuizzMaping" Type="QuizzesDbModel.QuizzMaping" Multiplicity="0..1" />
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.QuizzQustionMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzMaping">
+              <PropertyRef Name="Qm_Id" />
+            </Principal>
+            <Dependent Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_QuizzID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQustionMaping_QuizzQuestionMaster">
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.QuizzQuestionMaster" Multiplicity="0..1" />
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.QuizzQustionMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_Id" />
+            </Principal>
+            <Dependent Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_QutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizzQustionMaping_QuizzQuestionMaster1">
+          <End Role="QuizzQuestionMaster" Type="QuizzesDbModel.QuizzQuestionMaster" Multiplicity="0..1" />
+          <End Role="QuizzQustionMaping" Type="QuizzesDbModel.QuizzQustionMaping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizzQuestionMaster">
+              <PropertyRef Name="Qq_Id" />
+            </Principal>
+            <Dependent Role="QuizzQustionMaping">
+              <PropertyRef Name="Qm_Answer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuizzesDbModelStoreContainer" CdmEntityContainer="QuizzesDbEntities">
+          <EntitySetMapping Name="CandidateAnswers">
+            <EntityTypeMapping TypeName="QuizzesDbModel.CandidateAnswer">
+              <MappingFragment StoreEntitySet="CandidateAnswers">
+                <ScalarProperty Name="Ca_Id" ColumnName="Ca_Id" />
+                <ScalarProperty Name="Ca_CandadateRepositoryId" ColumnName="Ca_CandadateRepositoryId" />
+                <ScalarProperty Name="Ca_QustionId" ColumnName="Ca_QustionId" />
+                <ScalarProperty Name="Ca_SelectedOption" ColumnName="Ca_SelectedOption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateMasters">
+            <EntityTypeMapping TypeName="QuizzesDbModel.CandidateMaster">
+              <MappingFragment StoreEntitySet="CandidateMaster">
+                <ScalarProperty Name="Candidate_ID" ColumnName="Candidate_ID" />
+                <ScalarProperty Name="Candidate_Name" ColumnName="Candidate_Name" />
+                <ScalarProperty Name="Candidate_EmailId" ColumnName="Candidate_EmailId" />
+                <ScalarProperty Name="CandidatePassword" ColumnName="CandidatePassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateRepositories">
+            <EntityTypeMapping TypeName="QuizzesDbModel.CandidateRepository">
+              <MappingFragment StoreEntitySet="CandidateRepository">
+                <ScalarProperty Name="Cq_ID" ColumnName="Cq_ID" />
+                <ScalarProperty Name="Cq_CandidateId" ColumnName="Cq_CandidateId" />
+                <ScalarProperty Name="Cq_QuizzId" ColumnName="Cq_QuizzId" />
+                <ScalarProperty Name="Cq_Date" ColumnName="Cq_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizzLevels">
+            <EntityTypeMapping TypeName="QuizzesDbModel.QuizzLevel">
+              <MappingFragment StoreEntitySet="QuizzLevel">
+                <ScalarProperty Name="Ql_Id" ColumnName="Ql_Id" />
+                <ScalarProperty Name="Ql_Type" ColumnName="Ql_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizzMapings">
+            <EntityTypeMapping TypeName="QuizzesDbModel.QuizzMaping">
+              <MappingFragment StoreEntitySet="QuizzMaping">
+                <ScalarProperty Name="Qm_Description" ColumnName="Qm_Description" />
+                <ScalarProperty Name="Qm_Id" ColumnName="Qm_Id" />
+                <ScalarProperty Name="Qm_QuizzSubjectId" ColumnName="Qm_QuizzSubjectId" />
+                <ScalarProperty Name="Qm_QuizzLvlId" ColumnName="Qm_QuizzLvlId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizzQuestionMasters">
+            <EntityTypeMapping TypeName="QuizzesDbModel.QuizzQuestionMaster">
+              <MappingFragment StoreEntitySet="QuizzQuestionMaster">
+                <ScalarProperty Name="Qq_Id" ColumnName="Qq_Id" />
+                <ScalarProperty Name="Qq_QuizzId" ColumnName="Qq_QuizzId" />
+                <ScalarProperty Name="Qq_Question" ColumnName="Qq_Question" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizzQustionMapings">
+            <EntityTypeMapping TypeName="QuizzesDbModel.QuizzQustionMaping">
+              <MappingFragment StoreEntitySet="QuizzQustionMaping">
+                <ScalarProperty Name="Qm_Id" ColumnName="Qm_Id" />
+                <ScalarProperty Name="Qm_QuizzID" ColumnName="Qm_QuizzID" />
+                <ScalarProperty Name="Qm_QutionID" ColumnName="Qm_QutionID" />
+                <ScalarProperty Name="Qm_Answer" ColumnName="Qm_Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizzQustionsOptions">
+            <EntityTypeMapping TypeName="QuizzesDbModel.QuizzQustionsOption">
+              <MappingFragment StoreEntitySet="QuizzQustionsOptions">
+                <ScalarProperty Name="Qo_Id" ColumnName="Qo_Id" />
+                <ScalarProperty Name="Qo_AnswerText" ColumnName="Qo_AnswerText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizzSubjects">
+            <EntityTypeMapping TypeName="QuizzesDbModel.QuizzSubject">
+              <MappingFragment StoreEntitySet="QuizzSubjects">
+                <ScalarProperty Name="Qs_Id" ColumnName="Qs_Id" />
+                <ScalarProperty Name="Qs_Subject" ColumnName="Qs_Subject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
