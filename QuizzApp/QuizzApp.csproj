@@ -155,6 +155,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CertificationModel.cs" />
+    <Compile Include="Models\ExamModel.cs" />
     <Compile Include="Models\SelectExamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

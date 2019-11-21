@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<QuizzApp.Models.ExamModel>
+@{
     ViewBag.Title = "Exam";
 }
 <style>
@@ -6,23 +7,36 @@
         margin: 4px;
         width: 45px;
     }
-   
 </style>
-<div class="row">
-    <div class="col-md-8">
-        <div class="tab-content">
-            @for (int i = 1; i <= 60; i++)
-            { 
-                <div id="collapse_@i"  class="card tab-pane">
-                    <div class="card-header">
-                        Q @i . 
-                    </div>
-                    <div style="height: 362px;" class="card-body">
-                        <div class="funkyradio-info">
-                            <input type="radio" name="checkbox_@i" />
-                            <label for="checkbox6">Option 1</label>
+@using (Html.BeginForm("Exam", "Quiz"))
+{
+    @Html.Hidden("ExamId", (int)ViewBag.ExamId)
+    <div class="row">
+        <div class="col-md-12">
+
+            <input type="submit" class="btn btn-primary" style="float: right" title="Finish Exam" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="tab-content">
+                @for (int i = 1; i <= Model.Count(); i++)
+                { 
+                    @Html.HiddenFor(m => Model.ToArray()[i - 1].QustionId)
+                    <div id="collapse_@i"  class="card tab-pane">
+                        <div class="card-header">
+                            Q.@Model.ToArray()[i - 1].QustionId  @Model.ToArray()[i - 1].QustionText
                         </div>
-                        <div class="funkyradio-info">
+                        <div style="height: 362px;" class="card-body">
+                            @foreach (var item in Model.ToArray()[i - 1].options)
+                            {
+                                <div class="funkyradio-info">
+                                    @Html.RadioButtonFor(m => Model.ToArray()[i - 1].SelectedOption, item.OptionId)
+                                    @*<input type="radio" id="" name="checkbox_@i" />*@
+                                    <label for="checkbox6">@item.OptionText</label>
+                                </div>
+                            }
+                            @*                         <div class="funkyradio-info">
                             <input type="radio" name="checkbox_@i"  />
                             <label for="checkbox6">Option 2</label>
                         </div>
@@ -33,32 +47,32 @@
                         <div class="funkyradio-info">
                             <input type="radio" name="checkbox_@i"  />
                             <label for="checkbox6">Option 4</label>
+                        </div>*@
+                        </div>
+                        <div style="height: 62px;" class="card-footer">
+                            <div style="float: right">
+                                <a style="color: white" class="btn btn-primary linkbtnStyle btnPrevious">Previous</a>
+                                <a style="color: white" class="btn btn-primary linkbtnStyle btnNext">Next</a>
+                            </div>
                         </div>
                     </div>
-                    <div style="height: 62px;" class="card-footer">
-                         <div style="float:right">
-                             <a style="color:white" class="btn btn-primary linkbtnStyle btnPrevious">Previous</a>
-                             <a  style="color:white"  class="btn btn-primary linkbtnStyle btnNext">Next</a>
-                         </div>
-              </div>
-                </div>
-            }
-             
-        </div>       
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div style="height: 478px;overflow-y: auto;" class="card-body">
-                <div class="nav nav-pills Que" role="tablist">
-                    @for (int i = 1; i <= 60; i++)
-                    {         
-                        <a class="btn btn-warning navBtnStyle" data-toggle="pill" href="#collapse_@i">@i</a>
-                    }
+                }
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div style="height: 478px; overflow-y: auto;" class="card-body">
+                    <div class="nav nav-pills Que" role="tablist">
+                        @for (int i = 1; i <= Model.Count(); i++)
+                        {         
+                            <a class="btn btn-warning navBtnStyle" data-toggle="pill" href="#collapse_@i">@i</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
 <script>
     $(document).ready(function () {
         $('.Que >').first('a').trigger('click');

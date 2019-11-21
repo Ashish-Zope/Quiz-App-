@@ -58,8 +58,7 @@
         height: 300px;  overflow: auto;
     }
 </style>
-@using(Html.BeginForm("Exam","Quiz"))
-{
+
     
 <div class="row">
     <div class="col-md-12">
@@ -124,7 +123,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-sm-2 align-self-end"><a class="btn btn-primary linkbtnStyle btnPrevious">Previous</a></div>
-                            <div class="col-sm-2 align-self-end"> <input type="submit" class="btn btn-primary" value="Start Exam" /> @*<a class="btn btn-primary linkbtnStyle">Start Exam</a></div>*@
+                            <div class="col-sm-2 align-self-end"> <input id="submitBtn" type="button" class="btn btn-primary" value="Start Exam" /> @*<a class="btn btn-primary linkbtnStyle">Start Exam</a></div>*@
                         </div>
                     </div>
                 </div>
@@ -132,8 +131,17 @@
         </div>
     </div>
 </div></div>
-}
+
 <script>
+
+
+    $('#submitBtn').click(function ()
+    {
+    var  radioval=    $("input[name='SelectExamRadio']:checked").val();
+    window.location.href='/quiz/Exam?SelectExamRadio=' + radioval + '';
+    return false;
+    });
+
     $('.btnNext').click(function () {
 
         //$('#SelectExamRadio').each(function () {

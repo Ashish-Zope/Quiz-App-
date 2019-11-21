@@ -27,7 +27,7 @@ namespace QuizzApp.Controllers
             return View();
         }
 
-        [ActionName("Certification")]
+
         [HttpGet]
         public async Task<ActionResult> Certification()
         {
@@ -58,13 +58,35 @@ namespace QuizzApp.Controllers
 
             return View(selectExamModel);
         }
+        [HttpGet]
+        public async Task<ActionResult> Exam(int? SelectExamRadio)
+        {
+          //  ExamModel examModel=new ExamModel();
+            if(SelectExamRadio.Equals(null))
+                return RedirectToAction("Certification");
 
-        public async Task<ActionResult> Exam(int ? SelectExamRadio)
+            ViewBag.ExamId = SelectExamRadio;
+            var examModel = (await _unitOfWork.Repository<QuizzMaping>()
+                             .GetById(SelectExamRadio)).QuizzQustionMapings
+                             .GroupBy(g => g.QuizzQuestionMaster).Select(s => new ExamModel
+                             {
+                                 QustionId = s.Key.Qq_Id,
+                                 QustionText = s.Key.Qq_Question,
+                                 options = s.Key.QuizzQustionMapings.Select(qm => new ExamOptions {                                  
+                                 OptionId=qm.QuizzQustionsOption.Qo_Id,
+                                 OptionText=qm.QuizzQustionsOption.Qo_AnswerText                                 
+                                 }).ToList()
+                             }).ToList();
+
+            return View("Exam", examModel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Exam(int ExamId, List<ExamModel> examModel)
         {
 
 
 
-            return View();
+                return RedirectToAction("Certification");
         }
 
 
