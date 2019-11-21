@@ -17,11 +17,13 @@ namespace DataModel
         public QuizzQustionsOption()
         {
             this.CandidateAnswers = new HashSet<CandidateAnswer>();
+            this.QuizzQustionMapings = new HashSet<QuizzQustionMaping>();
         }
     
         public int Qo_Id { get; set; }
         public string Qo_AnswerText { get; set; }
     
         public virtual ICollection<CandidateAnswer> CandidateAnswers { get; set; }
+        public virtual ICollection<QuizzQustionMaping> QuizzQustionMapings { get; set; }
     }
 }

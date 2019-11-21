@@ -16,7 +16,6 @@ namespace DataModel
     {
         public QuizzMaping()
         {
-            this.QuizzQuestionMasters = new HashSet<QuizzQuestionMaster>();
             this.QuizzQustionMapings = new HashSet<QuizzQustionMaping>();
         }
     
@@ -27,7 +26,6 @@ namespace DataModel
     
         public virtual QuizzLevel QuizzLevel { get; set; }
         public virtual QuizzSubject QuizzSubject { get; set; }
-        public virtual ICollection<QuizzQuestionMaster> QuizzQuestionMasters { get; set; }
         public virtual ICollection<QuizzQustionMaping> QuizzQustionMapings { get; set; }
     }
 }

@@ -22,11 +22,12 @@ namespace DataModel
         public int Qm_Id { get; set; }
         public Nullable<int> Qm_QuizzID { get; set; }
         public Nullable<int> Qm_QutionID { get; set; }
-        public Nullable<int> Qm_Answer { get; set; }
+        public Nullable<int> Qm_OptionId { get; set; }
+        public Nullable<bool> Qm_IsAnswer { get; set; }
     
         public virtual ICollection<CandidateRepository> CandidateRepositories { get; set; }
         public virtual QuizzMaping QuizzMaping { get; set; }
         public virtual QuizzQuestionMaster QuizzQuestionMaster { get; set; }
-        public virtual QuizzQuestionMaster QuizzQuestionMaster1 { get; set; }
+        public virtual QuizzQustionsOption QuizzQustionsOption { get; set; }
     }
 }

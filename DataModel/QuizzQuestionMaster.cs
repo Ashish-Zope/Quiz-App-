@@ -18,16 +18,12 @@ namespace DataModel
         {
             this.CandidateAnswers = new HashSet<CandidateAnswer>();
             this.QuizzQustionMapings = new HashSet<QuizzQustionMaping>();
-            this.QuizzQustionMapings1 = new HashSet<QuizzQustionMaping>();
         }
     
         public int Qq_Id { get; set; }
-        public Nullable<int> Qq_QuizzId { get; set; }
         public string Qq_Question { get; set; }
     
         public virtual ICollection<CandidateAnswer> CandidateAnswers { get; set; }
-        public virtual QuizzMaping QuizzMaping { get; set; }
         public virtual ICollection<QuizzQustionMaping> QuizzQustionMapings { get; set; }
-        public virtual ICollection<QuizzQustionMaping> QuizzQustionMapings1 { get; set; }
     }
 }
