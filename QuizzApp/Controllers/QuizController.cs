@@ -64,7 +64,7 @@ namespace QuizzApp.Controllers
           //  ExamModel examModel=new ExamModel();
             if(SelectExamRadio.Equals(null))
                 return RedirectToAction("Certification");
-
+            // bind the view model ofr exam action.
             ViewBag.ExamId = SelectExamRadio;
             var examModel = (await _unitOfWork.Repository<QuizzMaping>()
                              .GetById(SelectExamRadio)).QuizzQustionMapings
@@ -83,10 +83,24 @@ namespace QuizzApp.Controllers
         [HttpPost]
         public async Task<ActionResult> Exam(int ExamId, List<ExamModel> examModel)
         {
+            int candidateId = 1;
+            // bind the properties to candidate repository model.
+            var candidaeRepository = new CandidateRepository
+            {
+                Cq_CandidateId = candidateId,
+                Cq_QuizzId = ExamId,
+                Cq_Date = DateTime.Now,
+                CandidateAnswers = examModel.Select(s => new CandidateAnswer 
+                {                
+                    Ca_QustionId=s.QustionId,
+                    Ca_SelectedOption=s.SelectedOption                
+                }).ToList()
+            };
+            //insert data in database.
+            _unitOfWork.Repository<CandidateRepository>().Insert(candidaeRepository);
+            _unitOfWork.Save();
 
-
-
-                return RedirectToAction("Certification");
+            return RedirectToAction("Certification");
         }
 
 
