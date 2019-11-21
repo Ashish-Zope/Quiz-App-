@@ -3,9 +3,21 @@
     ViewBag.Title = "Exam";
 }
 <style>
-    .navBtnStyle {
-        margin: 4px;
-        width: 45px;
+   .navBtnStyle
+    {
+        margin: 4px;        width: 45px; cursor: pointer;
+    }
+   .tabStyle
+    {
+       background-color: dimgrey;    color: white;
+    }
+   .tabStyle:hover 
+    {
+        color:white
+    }
+    .linkbtnStyle
+    {
+         cursor: pointer;
     }
 </style>
 @using (Html.BeginForm("Exam", "Quiz"))
@@ -27,7 +39,7 @@
                         <div class="card-header">
                             Q.@Model.ToArray()[i - 1].QustionId  @Model.ToArray()[i - 1].QustionText
                         </div>
-                        <div style="height: 362px;" class="card-body">
+                        <div style="height:326px;" class="card-body">
                             @foreach (var item in Model.ToArray()[i - 1].options)
                             {
                                 <div class="funkyradio-info">
@@ -36,7 +48,7 @@
                                     <label for="checkbox6">@item.OptionText</label>
                                 </div>
                             }
-                            @*                         <div class="funkyradio-info">
+                            @*<div class="funkyradio-info">
                             <input type="radio" name="checkbox_@i"  />
                             <label for="checkbox6">Option 2</label>
                         </div>
@@ -61,11 +73,11 @@
         </div>
         <div class="col-md-4">
             <div class="card">
-                <div style="height: 478px; overflow-y: auto;" class="card-body">
+                <div style="height: 436px; overflow-y: auto;" class="card-body">
                     <div class="nav nav-pills Que" role="tablist">
                         @for (int i = 1; i <= Model.Count(); i++)
                         {         
-                            <a class="btn btn-warning navBtnStyle" data-toggle="pill" href="#collapse_@i">@i</a>
+                            <a class="btn tabStyle navBtnStyle" data-toggle="pill" data-val="collapse_@i" href="#collapse_@i">@i</a>
                         }
                     </div>
                 </div>
@@ -77,15 +89,27 @@
     $(document).ready(function () {
         $('.Que >').first('a').trigger('click');
 
-        $('.btnNext').click(function () {
-
+        $('.btnNext').click(function ()
+        {
+            var panelID = $('.Que >.active').attr('data-val')
+            var checked_option_radio = $('#' + panelID).find('input:checked').val();
+            if (checked_option_radio == undefined)
+                $('.Que >.active').removeClass('tabStyle').addClass('btn-warning');
+             else 
+                $('.Que >.active').removeClass('tabStyle').removeClass('btn-warning').addClass('btn-success');
+      
             $('.Que >.active').next('a').trigger('click');
         });
         $('.btnPrevious').click(function () {
 
+            var panelID = $('.Que >.active').attr('data-val')
+            var checked_option_radio = $('#' + panelID).find('input:checked').val();
+            if (checked_option_radio == undefined)
+                $('.Que >.active').removeClass('tabStyle').addClass('btn-warning');
+            else
+                $('.Que >.active').removeClass('tabStyle').removeClass('btn-warning').addClass('btn-success');
+
             $('.Que > .active').prev('a').trigger('click');
-
-
         });
     });
 </script>
