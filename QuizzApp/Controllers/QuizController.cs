@@ -23,10 +23,8 @@ namespace QuizzApp.Controllers
 
         public async Task<ActionResult> Index()
         {
-
             return View();
         }
-
 
         [HttpGet]
         public async Task<ActionResult> Certification()
@@ -81,7 +79,7 @@ namespace QuizzApp.Controllers
             return View("Exam", examModel);
         }
         [HttpPost]
-        public async Task<ActionResult> Exam(int ExamId, List<ExamModel> examModel)
+        public  ActionResult Exam(int ExamId, List<ExamModel> examModel)
         {
             int candidateId = 1;
             // bind the properties to candidate repository model.
@@ -96,14 +94,30 @@ namespace QuizzApp.Controllers
                     Ca_SelectedOption=s.SelectedOption                
                 }).ToList()
             };
-            //insert data in database.
-            _unitOfWork.Repository<CandidateRepository>().Insert(candidaeRepository);
-            _unitOfWork.Save();
+            //insert data in database.            
+             _unitOfWork.Repository<CandidateRepository>().Insert(candidaeRepository);
+           _unitOfWork.Save();
 
-            return RedirectToAction("Certification");
+           return RedirectToAction("ScoreCard", new {RepositoryId= candidaeRepository.Cq_ID });
         }
 
+        [HttpGet]
+        public async Task<ActionResult> ScoreCard(int RepositoryId)
+        {
 
+            var CandidateAnswer = await _unitOfWork.ScoreCardRepository().GetById(RepositoryId);
+
+
+            //var candidateRepository = (await _unitOfWork.Repository<CandidateRepository>().GetById(RepositoryId))
+            //                            .CandidateAnswers.Select(s => new ScoreCardModel {
+            //                            QustionText=s.QuizzQuestionMaster.QuizzQustionMapings.First().
+                                        
+                                        
+            //                            });
+
+
+            return View();
+        }
 
     }
 }

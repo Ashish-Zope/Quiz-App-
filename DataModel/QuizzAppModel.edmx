@@ -250,6 +250,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetScoreCardForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ExamRepositoryId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ExamRepositoryId" Type="int" Nullable="false" />
+                <Property Name="QustionId" Type="int" Nullable="false" />
+                <Property Name="QuestionText" Type="varchar" MaxLength="100" />
+                <Property Name="AnswerId" Type="int" Nullable="false" />
+                <Property Name="AnswerText" Type="varchar" MaxLength="100" />
+                <Property Name="IsAnswer" Type="bit" />
+                <Property Name="selectedOption" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -304,6 +320,9 @@
             <End Role="QuizzQustionsOption" EntitySet="QuizzQustionsOptions" />
             <End Role="QuizzQustionMaping" EntitySet="QuizzQustionMapings" />
           </AssociationSet>
+          <FunctionImport Name="GetScoreCardForUser" IsComposable="true" ReturnType="Collection(QuizzesDbModel.GetScoreCardForUser_Result)">
+            <Parameter Name="ExamRepositoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="CandidateAnswer">
           <Key>
@@ -519,6 +538,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetScoreCardForUser_Result">
+          <Property Type="Int32" Name="ExamRepositoryId" Nullable="false" />
+          <Property Type="Int32" Name="QustionId" Nullable="false" />
+          <Property Type="String" Name="QuestionText" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="AnswerId" Nullable="false" />
+          <Property Type="String" Name="AnswerText" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsAnswer" Nullable="true" />
+          <Property Type="Int32" Name="selectedOption" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -608,6 +636,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetScoreCardForUser" FunctionName="QuizzesDbModel.Store.GetScoreCardForUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuizzesDbModel.GetScoreCardForUser_Result">
+                <ScalarProperty Name="ExamRepositoryId" ColumnName="ExamRepositoryId" />
+                <ScalarProperty Name="QustionId" ColumnName="QustionId" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+                <ScalarProperty Name="IsAnswer" ColumnName="IsAnswer" />
+                <ScalarProperty Name="selectedOption" ColumnName="selectedOption" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

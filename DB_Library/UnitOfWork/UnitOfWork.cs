@@ -12,15 +12,19 @@ namespace DB_Library.UnitOfWork
     {
         private readonly QuizzesDbEntities _context;
         private IGenericRepository<QuizzSubject> _modelRepository;
+        private IScoreCardRepository _scoreCardRepository;
         // private IQuizzRepository _modelQuizzRepository;
         private Dictionary<Type, object> repositories = new Dictionary<Type, object>();
         public UnitOfWork(QuizzesDbEntities context)
         {
             _context = context;
-
- //           repositories.Add(typeof(QuizzSubject), new QuizzSubjectRepository(_context));
+            _scoreCardRepository = new ScoreCardRepository(_context);
+ //         repositories.Add(typeof(QuizzSubject), new QuizzSubjectRepository(_context));
         }
-
+        public IScoreCardRepository ScoreCardRepository()
+        {
+            return this._scoreCardRepository;
+        }
 
         public IGenericRepository<T> Repository<T>() where T : class
         {
@@ -34,8 +38,7 @@ namespace DB_Library.UnitOfWork
         }
 
 
-
-
+       
 
         //public IGenericRepository<QuizzSubject> QuizzSubjectRepository
         //{

@@ -58,6 +58,9 @@
     <Compile Include="CandidateRepository.cs">
       <DependentUpon>QuizzAppModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetScoreCardForUser_Result.cs">
+      <DependentUpon>QuizzAppModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizzAppModel.Context.cs">
       <AutoGen>True</AutoGen>

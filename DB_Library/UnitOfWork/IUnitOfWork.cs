@@ -12,6 +12,7 @@ namespace DB_Library.UnitOfWork
     {
         //IGenericRepository<QuizzSubject> QuizzSubjectRepository { get; }
       IGenericRepository<T> Repository<T>() where T : class;
+      IScoreCardRepository ScoreCardRepository();
       void Save();
 
     }

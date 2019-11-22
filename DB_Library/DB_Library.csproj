@@ -49,6 +49,8 @@
     <Compile Include="Model\QuizzRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\IScoreCardRepository.cs" />
+    <Compile Include="Repository\ScoreCardRepository.cs" />
     <Compile Include="Repository\IGenericRepository.cs" />
     <Compile Include="Repository\QuizzSubjectRepository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />

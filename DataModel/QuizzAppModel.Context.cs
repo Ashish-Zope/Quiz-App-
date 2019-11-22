@@ -11,7 +11,12 @@ namespace DataModel
 {
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.Core.Objects;
+    using System.Data.Entity.Core.Objects.DataClasses;
     using System.Data.Entity.Infrastructure;
+    //   using System.Data.Objects;
+    // using System.Data.Objects.DataClasses;
+    using System.Linq;
     
     public partial class QuizzesDbEntities : DbContext
     {
@@ -34,5 +39,15 @@ namespace DataModel
         public DbSet<QuizzQustionMaping> QuizzQustionMapings { get; set; }
         public DbSet<QuizzQustionsOption> QuizzQustionsOptions { get; set; }
         public DbSet<QuizzSubject> QuizzSubjects { get; set; }
+    
+        [EdmFunction("QuizzesDbEntities", "GetScoreCardForUser")]
+        public virtual IQueryable<GetScoreCardForUser_Result> GetScoreCardForUser(Nullable<int> examRepositoryId)
+        {
+            var examRepositoryIdParameter = examRepositoryId.HasValue ?
+                new ObjectParameter("ExamRepositoryId", examRepositoryId) :
+                new ObjectParameter("ExamRepositoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetScoreCardForUser_Result>("[QuizzesDbEntities].[GetScoreCardForUser](@ExamRepositoryId)", examRepositoryIdParameter);
+        }
     }
 }

@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-md-12">
 
-            <input type="submit" class="btn btn-primary" style="float: right" title="Finish Exam" />
+            <input type="submit" class="btn btn-primary" style="float: right;    margin: 0px 20px 6px 0px;" title="Finish Exam" />
         </div>
     </div>
     <div class="row">
@@ -77,7 +77,7 @@
                     <div class="nav nav-pills Que" role="tablist">
                         @for (int i = 1; i <= Model.Count(); i++)
                         {         
-                            <a class="btn tabStyle navBtnStyle" data-toggle="pill" data-val="collapse_@i" href="#collapse_@i">@i</a>
+                            <a class="btn tabStyle navBtnStyle tabFocus" data-toggle="pill" data-val="collapse_@i" href="#collapse_@i">@i</a>
                         }
                     </div>
                 </div>
@@ -111,6 +111,19 @@
 
             $('.Que > .active').prev('a').trigger('click');
         });
+
+        $(".tabFocus").blur(function ()
+        {
+            var panelID = $(this).attr('data-val')
+            var checked_option_radio = $('#' + panelID).find('input:checked').val();
+            if (checked_option_radio == undefined)
+                $(this).removeClass('tabStyle').addClass('btn-warning');
+            else
+                $(this).removeClass('tabStyle').removeClass('btn-warning').addClass('btn-success');
+            
+        });
+
+
     });
 </script>
 
