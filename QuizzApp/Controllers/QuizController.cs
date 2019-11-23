@@ -98,25 +98,29 @@ namespace QuizzApp.Controllers
              _unitOfWork.Repository<CandidateRepository>().Insert(candidaeRepository);
            _unitOfWork.Save();
 
-           return RedirectToAction("ScoreCard", new {RepositoryId= candidaeRepository.Cq_ID });
+           return RedirectToAction("ReviewAnswers", new { RepositoryId = candidaeRepository.Cq_ID });
         }
 
         [HttpGet]
-        public async Task<ActionResult> ScoreCard(int RepositoryId)
+        public async Task<ActionResult> ReviewAnswers(int RepositoryId)
         {
-
-            var CandidateAnswer = await _unitOfWork.ScoreCardRepository().GetById(RepositoryId);
-
-
-            //var candidateRepository = (await _unitOfWork.Repository<CandidateRepository>().GetById(RepositoryId))
-            //                            .CandidateAnswers.Select(s => new ScoreCardModel {
-            //                            QustionText=s.QuizzQuestionMaster.QuizzQustionMapings.First().
-                                        
-                                        
-            //                            });
-
-
-            return View();
+            //get the user answers from database.
+            var CandidateAnswer = (await _unitOfWork.ScoreCardRepository().GetById(RepositoryId))
+                                    .GroupBy(g => new{g.QustionId,g.QuestionText})
+                                    .Select(s => new ReviewAnswersModel 
+                                    { 
+                                        QustionId=s.Key.QustionId,
+                                        QustionText=s.Key.QuestionText,
+                                        SelectedAnswerId=s.FirstOrDefault().selectedOption,
+                                        Options = s.Select(o => new ReviewAnswersOption
+                                        {
+                                            OptionId=o.AnswerId,
+                                            IsAnswer=(bool)o.IsAnswer,
+                                            OptionText=o.AnswerText                                        
+                                        }).ToList()
+                                    });
+            ViewBag.Marks = CandidateAnswer.Count(s => s.SelectedAnswerId == s.Options.FirstOrDefault(f => f.IsAnswer == true).OptionId);
+            return View(CandidateAnswer);
         }
 
     }

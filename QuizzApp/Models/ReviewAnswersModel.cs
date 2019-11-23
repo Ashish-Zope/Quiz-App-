@@ -5,19 +5,20 @@ using System.Web;
 
 namespace QuizzApp.Models
 {
-    public class ScoreCardModel
+    public class ReviewAnswersModel
     {
         public int QustionId { get; set; }
         public string QustionText { get; set; }
-        public int SelectedAnswerId { get; set; }
-        public bool IsAnswer { get; set; }
-        public int CorrectAnswerId { get; set; }
+        public int ? SelectedAnswerId { get; set; }
+        public List<ReviewAnswersOption> Options { get; set; }
     }
 
-    public class ScoreCardOption 
+    public class ReviewAnswersOption 
     {
         public int OptionId { get; set; }
         public string OptionText { get; set; }
+        public bool IsAnswer { get; set; }
+
     }
 
 }

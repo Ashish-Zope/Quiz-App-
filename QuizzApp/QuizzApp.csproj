@@ -156,7 +156,7 @@
     </Compile>
     <Compile Include="Models\CertificationModel.cs" />
     <Compile Include="Models\ExamModel.cs" />
-    <Compile Include="Models\ScoreCardModel.cs" />
+    <Compile Include="Models\ReviewAnswersModel.cs" />
     <Compile Include="Models\SelectExamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -242,6 +242,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Quiz\SelectExam.cshtml" />
     <Content Include="Views\Quiz\Exam.cshtml" />
+    <Content Include="Views\Quiz\ReviewAnswers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,25 @@
+﻿@model  IEnumerable<QuizzApp.Models.ReviewAnswersModel>
+@{
+    ViewBag.Title = "Score Card";
+}
+<h3 style="text-align: center">Thank You for giving exam your score is @ViewBag.Marks /@Model.Count()</h3>
+@{int i = 1; }
+@foreach (var item in Model)
+{
+    int j = 65;
+    <div class="card">
+        <div class="card-header">Q @i. @item.QustionText</div>
+        <div class="card-body">          
+            @foreach(var option in item.Options)
+            {                
+                string alertStyle=option.IsAnswer?"alert-success": (item.SelectedAnswerId==option.OptionId && !option.IsAnswer)?"alert-danger":"";             
+                 <div class="alert @alertStyle">
+                    <strong>@Convert.ToChar(j): </strong> @option.OptionText 
+                </div>  
+                j++;          
+            }              
+            
+        </div>
+    </div>
+    i++;
+}
