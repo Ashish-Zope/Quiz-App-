@@ -9935,7 +9935,7 @@ a:focus {
 }
 
 .topbar {
-  height: 4.375rem;
+  height: 3.375rem;
 }
 
 .topbar #sidebarToggleTop {
@@ -10984,8 +10984,10 @@ form.user .btn-user {
 }
 
 footer.sticky-footer {
-  padding: 2rem 0;
-  flex-shrink: 0;
+      flex-shrink: 0;
+    padding: 12px;
+    color: brown;
+    background-color: #dee2d6 !important;
 }
 
 footer.sticky-footer .copyright {

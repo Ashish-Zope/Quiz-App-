@@ -35,6 +35,10 @@ form.example::after {
   clear: both;
   display: table;
 }
+.LinkBtnStyle
+{
+    cursor: pointer !important;
+}
 </style>
 <h4><label>Search Certification</label></h4>
 @using (Html.BeginForm(null,null,null,FormMethod.Get, new { @class = "example" }))
@@ -50,7 +54,7 @@ form.example::after {
       <div class="card-body">
         <h5 class="card-title">@Html.DisplayFor(model=>item.Subject)</h5>
         <p class="card-text">@Html.DisplayFor(model=>item.Description)</p>
-          @Html.ActionLink("Start Exam","SelectExam",new{id=item.Id},new{@class="btn btn-success"})
+          @Html.ActionLink("Start Exam","SelectExam",new{id=item.Id},new{@class="btn btn-success LinkBtnStyle"})
       </div>
     </div>
 }
