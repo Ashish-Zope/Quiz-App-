@@ -37,10 +37,11 @@ form.example::after {
 }
 </style>
 <h4><label>Search Certification</label></h4>
-<form class="example">
-  <input type="text" placeholder="Search.." name="search">
+@using (Html.BeginForm(null,null,null,FormMethod.Get, new { @class = "example" }))
+{
+  <input type="text" id="SearchText" placeholder="Search.."  name="SearchText" title="Search" value="@ViewBag.Searchtext">
   <button type="submit"><i class="fa fa-search"></i></button>
-</form>
+}
 <hr />
 
 @foreach(var item in Model)

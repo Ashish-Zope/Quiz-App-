@@ -27,18 +27,23 @@ namespace QuizzApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Certification()
+        public async Task<ActionResult> Certification(string SearchText)
         {
+           
             // get the list of subjects from quizz subject repository.
            // var certificationLis = (await _unitOfWork.Repository<QuizzSubject>().Get(includes: s => s.QuizzMapings));
-            var certificationList =  (await _unitOfWork.Repository<QuizzSubject>().Get(s=>s.QuizzMapings.Count() !=0,includes:s=>s.QuizzMapings)).ToList()
+            var certificationList =  (await _unitOfWork.Repository<QuizzSubject>()
+                                            .Get(s=>s.QuizzMapings.Count() !=0
+                                                 && string.IsNullOrEmpty(SearchText) ? true : s.Qs_Subject.ToUpper().Contains(SearchText.ToUpper()) 
+                                                ,includes:s=>s.QuizzMapings)
+                                               ).ToList()
                                                 .Select(s => new CertificationModel
                                             {
                                                 Id = s.Qs_Id,
                                                 Subject = s.Qs_Subject,
                                                 Description = s.QuizzMapings.FirstOrDefault().Qm_Description
                                             });
-         
+            ViewBag.Searchtext = SearchText;
             return View(certificationList.ToList());
         }
 
